@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Boas Contas</title>
+    <!-- Importa as fontes e ícones necessários -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Inclui a nossa nova folha de estilos central -->
+    <?!= include('Stylesheet_Dark'); ?>
+</head>
+<body>
+    <div class="container">
+        <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 24px;">Configurações Rápidas</h1>
+
+        <!-- Seção para adicionar contas -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h2 class="card-title">1. Adicionar Conta / Cartão</h2>
+            </div>
+            <div class="card-content">
+                <p style="color: var(--text-muted); margin-bottom: 20px;">
+                    Primeiro, adicione as suas contas bancárias e cartões de crédito aqui.
+                </p>
+                <div class="form-group">
+                    <input id="accountName" type="text" placeholder="Nome (ex: Nubank, Itaú)">
+                </div>
+                <div class="form-group">
+                    <select id="accountType">
+                        <option value="Conta Corrente">Conta Corrente</option>
+                        <option value="Cartão de Crédito">Cartão de Crédito</option>
+                        <option value="Dinheiro Físico">Dinheiro Físico</option>
+                        <option value="Fatura Consolidada">Fatura Consolidada</option>
+                    </select>
+                </div>
+                <button onclick="addAccount()" class="btn btn-primary">Adicionar Conta</button>
+
+                <div class="info-box">
+                    <h5><i class="fas fa-lightbulb"></i> Dica sobre Cartões de Crédito</h5>
+                    <p>
+                        Após adicionar um cartão, vá à aba <strong>`Contas`</strong> para configurar o dia de fechamento e vencimento.
+                    </p>
+                    <ul>
+                        <li><strong>fechamento-anterior:</strong> Fechamento e vencimento no mesmo mês.</li>
+                        <li><strong>fechamento-mes:</strong> Fechamento num mês, vencimento no seguinte.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção para adicionar palavras-chave -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon" style="background: linear-gradient(135deg, var(--accent-green), var(--accent-teal));">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h2 class="card-title">2. Ensinar o Bot (Palavras-Chave)</h2>
+            </div>
+            <div class="card-content">
+                <p style="color: var(--text-muted); margin-bottom: 20px;">
+                    Agora, ensine o bot a reconhecer os seus lançamentos.
+                </p>
+                <div class="form-group">
+                    <label for="keywordTypeSelect">Selecione o que quer ensinar:</label>
+                    <select id="keywordTypeSelect" onchange="updateFormFields()">
+                        <option value="categoria">Categorizar um Gasto (ex: ifood)</option>
+                        <option value="conta">Dar um Apelido a uma Conta (ex: nu)</option>
+                    </select>
+                </div>
+
+                <!-- Campos para Categoria/Subcategoria -->
+                <div id="categoriaFields">
+                    <div class="form-group">
+                        <input id="categoryKeyword" type="text" placeholder="Palavra-Chave (ex: ifood, uber)">
+                    </div>
+                    <div class="form-group">
+                        <select id="mainCategory">
+                            <option value="">Selecione a Categoria Principal</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input id="subcategory" type="text" placeholder="Subcategoria (ex: Delivery)">
+                    </div>
+                </div>
+
+                <!-- Campos para Apelido de Conta -->
+                <div id="contaFields" style="display: none;">
+                    <div class="form-group">
+                        <input id="accountNickname" type="text" placeholder="Apelido (ex: nu, roxinho)">
+                    </div>
+                    <div class="form-group">
+                        <select id="accountRealName">
+                            <option value="">Selecione a Conta Real</option>
+                        </select>
+                    </div>
+                </div>
+                <button onclick="addKeyword()" class="btn btn-primary">Adicionar Palavra-Chave</button>
+            </div>
+        </div>
+        
+        <div id="status"></div>
+    </div>
+
+    <!-- O seu script JavaScript original, sem alterações -->
+    <script>
+        // ... cole aqui o seu script original do Configuration.html ...
+        // (O script que começa com document.addEventListener("DOMContentLoaded", ...))
+    </script>
+</body>
+</html>
