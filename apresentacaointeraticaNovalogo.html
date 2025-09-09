@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação - Boas Contas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .slide {
+            display: none;
+            min-height: 100vh;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+        .slide-content {
+            max-width: 1000px;
+            width: 90%;
+        }
+        .presenter-notes {
+            background-color: #fffbe6;
+            border-left: 4px solid #facc15;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            color: #713f12;
+            border-radius: 0 8px 8px 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div id="slideshow-container">
+        <!-- Slide 1: Título -->
+        <section class="slide active items-center justify-center bg-gray-900 text-white" style="background-image: url('https://images.unsplash.com/photo-1554224155-8d04421cd6e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80'); background-size: cover; background-position: center; background-blend-mode: overlay;">
+            <div class="slide-content text-center bg-black bg-opacity-50 p-12 rounded-lg">
+                <div class="flex flex-col md:flex-row items-center justify-center gap-x-6 gap-y-4 mb-6">
+                    <!-- NOVO LOGO -->
+                    <div class="w-24 h-24 bg-gradient-to-br from-green-600 to-emerald-400 rounded-3xl flex items-center justify-center shadow-2xl transform transition-transform hover:scale-105">
+                        <i class="fas fa-seedling text-5xl text-white"></i>
+                    </div>
+                    <!-- System Name -->
+                    <h1 class="text-6xl md:text-8xl font-extrabold tracking-tight">Boas Contas</h1>
+                </div>
+                <p class="text-2xl md:text-3xl text-gray-300">A gestão financeira que semeia tranquilidade na sua vida.</p>
+            </div>
+        </section>
+
+        <!-- Slide 2: O Problema -->
+        <section class="slide items-center justify-center">
+            <div class="slide-content grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Gerir as finanças é complicado.</h2>
+                    <ul class="space-y-4 text-lg text-gray-600">
+                        <li class="flex items-start"><i class="fas fa-table-cells text-red-500 mt-1 mr-3"></i><span>As **planilhas** são poderosas, mas exigem tempo, disciplina e conhecimento técnico.</span></li>
+                        <li class="flex items-start"><i class="fas fa-mobile-screen-button text-red-500 mt-1 mr-3"></i><span>As **apps tradicionais** são rígidas, cheias de campos para preencher e, muitas vezes, abandonadas após algumas semanas.</span></li>
+                        <li class="flex items-start"><i class="fas fa-head-side-cough text-red-500 mt-1 mr-3"></i><span>**A consequência?** Falta de clareza, stress e a sensação de que não se sabe para onde o dinheiro realmente vai.</span></li>
+                    </ul>
+                    <div class="presenter-notes">
+                        <p><strong>Notas para o apresentador:</strong> Comece por se conectar com a "dor" do cliente. Todos já se sentiram assim. Pergunte à audiência quem já tentou usar uma planilha e desistiu.</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center">
+                    <img src="https://placehold.co/400x400/ef4444/ffffff?text=Frustra%C3%A7%C3%A3o" alt="Pessoa frustrada com finanças" class="rounded-lg shadow-xl">
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: A Solução -->
+        <section class="slide items-center justify-center bg-blue-50">
+             <div class="slide-content text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">E se as suas finanças fossem tão simples como enviar uma mensagem?</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12">O **Boas Contas** é um sistema inovador que une o melhor de dois mundos:</p>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-10">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center w-24 h-24 mx-auto bg-blue-500 text-white rounded-full text-5xl mb-4"><i class="fab fa-telegram-plane"></i></div>
+                        <h3 class="text-2xl font-bold text-gray-800">A agilidade do Telegram</h3>
+                        <p class="text-gray-600">Para registar tudo em segundos, de onde estiver.</p>
+                    </div>
+                    <div class="text-4xl text-gray-300 font-light">+</div>
+                     <div class="text-center">
+                        <div class="flex items-center justify-center w-24 h-24 mx-auto bg-green-500 text-white rounded-full text-5xl mb-4"><i class="fas fa-table"></i></div>
+                        <h3 class="text-2xl font-bold text-gray-800">O poder do Google Sheets</h3>
+                        <p class="text-gray-600">Como a sua base de dados pessoal, segura e privada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Como Funciona? -->
+        <section class="slide items-center justify-center">
+            <div class="slide-content text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Registe tudo. Em qualquer lugar. Sem esforço.</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12">O coração do sistema é a sua **inteligência conversacional**. Não precisa de preencher formulários, basta dizer o que aconteceu.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500">
+                        <h3 class="font-bold text-lg mb-2">1. Envie uma Mensagem</h3>
+                        <p class="text-gray-600">Simplesmente escreva o que fez, como faria numa conversa normal.</p>
+                        <code class="block bg-gray-100 text-gray-800 p-3 rounded-md mt-4 text-sm">gastei 50 no mercado com o Nubank</code>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500">
+                        <h3 class="font-bold text-lg mb-2">2. Ou Envie um Áudio</h3>
+                        <p class="text-gray-600">Não quer escrever? Envie uma mensagem de voz. O sistema transcreve e entende.</p>
+                        <div class="flex items-center justify-center bg-gray-100 p-3 rounded-md mt-4 text-blue-500"><i class="fas fa-microphone-alt text-2xl"></i></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+                        <h3 class="font-bold text-lg mb-2">3. Pronto!</h3>
+                        <p class="text-gray-600">O sistema entende, categoriza e regista a transação na sua planilha pessoal instantaneamente.</p>
+                        <div class="flex items-center justify-center bg-green-100 p-3 rounded-md mt-4 text-green-600 font-bold">Transação Registada!</div>
+                    </div>
+                </div>
+                 <div class="presenter-notes">
+                    <p><strong>Notas para o apresentador:</strong> Este é o principal diferencial. Destaque a simplicidade e a remoção da "fricção". Se possível, faça uma demonstração ao vivo aqui.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Análises Rápidas -->
+        <section class="slide items-center justify-center bg-gray-50">
+            <div class="slide-content grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                 <div class="flex items-center justify-center">
+                    <img src="https://placehold.co/350x500/1e293b/ffffff?text=Print+do+Telegram" alt="Print do Telegram com respostas do bot" class="rounded-lg shadow-xl">
+                </div>
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Não precisa de abrir a planilha para ter respostas.</h2>
+                    <p class="text-lg text-gray-600 mb-6">Faça perguntas e obtenha relatórios instantâneos diretamente no chat, a qualquer hora.</p>
+                    <ul class="space-y-3 text-lg text-gray-700">
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i><code>/saldo</code> para ver o saldo de todas as suas contas.</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i><code>/resumo</code> para uma visão geral do seu mês.</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i><code>/saude</code> para um check-up da sua saúde financeira.</li>
+                        <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>"quanto gastei com ifood este mês?"</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 6: Dashboard -->
+        <section class="slide items-center justify-center">
+            <div class="slide-content text-center">
+                 <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Veja a história que os seus números contam.</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-12">Com o comando `/dashboard`, aceda a um painel de controlo web, seguro e privado, onde pode explorar os seus dados de forma visual e interativa.</p>
+                <div class="bg-white rounded-lg shadow-2xl p-4 border border-gray-200">
+                     <img src="https://placehold.co/800x450/403d39/ffffff?text=Print+do+Dashboard+Web" alt="Dashboard Web" class="rounded-md">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 7: Ecossistema -->
+        <section class="slide items-center justify-center bg-gray-900 text-white">
+            <div class="slide-content text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Um ecossistema para a sua vida financeira e produtiva.</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-12">O Boas Contas cresce consigo, oferecendo ferramentas que vão muito além de um simples gestor de despesas.</p>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div class="bg-gray-800 p-6 rounded-lg text-center"><i class="fas fa-chart-line text-4xl text-green-400 mb-4"></i><h3 class="font-bold text-lg">Gestão de Investimentos</h3></div>
+                    <div class="bg-gray-800 p-6 rounded-lg text-center"><i class="fas fa-bullseye text-4xl text-green-400 mb-4"></i><h3 class="font-bold text-lg">Metas de Poupança</h3></div>
+                    <div class="bg-gray-800 p-6 rounded-lg text-center"><i class="fas fa-file-import text-4xl text-green-400 mb-4"></i><h3 class="font-bold text-lg">Importação de Faturas</h3></div>
+                    <div class="bg-gray-800 p-6 rounded-lg text-center"><i class="fas fa-tasks text-4xl text-green-400 mb-4"></i><h3 class="font-bold text-lg">Gestão de Tarefas</h3></div>
+                    <div class="bg-gray-800 p-6 rounded-lg text-center"><i class="fas fa-brain text-4xl text-green-400 mb-4"></i><h3 class="font-bold text-lg">Perfil Financeiro</h3></div>
+                    <div class="bg-gray-800 p-6 rounded-lg text-center"><i class="fas fa-archive text-4xl text-green-400 mb-4"></i><h3 class="font-bold text-lg">Arquivamento Automático</h3></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Segurança -->
+        <section class="slide items-center justify-center">
+            <div class="slide-content grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Os seus dados são seus. E apenas seus.</h2>
+                     <ul class="space-y-4 text-lg text-gray-600">
+                        <li class="flex items-start"><i class="fab fa-google-drive text-blue-500 mt-1 mr-3"></i><span>**Base de Dados Privada:** Todas as suas informações financeiras ficam guardadas na **sua própria conta Google**, na sua planilha. Nós nunca temos acesso aos seus dados.</span></li>
+                        <li class="flex items-start"><i class="fas fa-user-shield text-blue-500 mt-1 mr-3"></i><span>**Acesso Seguro:** O dashboard web só é acessível através de um link temporário e seguro que apenas você pode gerar a partir do seu Telegram.</span></li>
+                    </ul>
+                </div>
+                 <div class="flex items-center justify-center">
+                    <i class="fas fa-lock text-9xl text-gray-300"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Público-Alvo -->
+        <section class="slide items-center justify-center bg-gray-50">
+            <div class="slide-content text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Se valoriza o seu tempo e a sua clareza financeira, é para si.</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-gray-700 mt-12">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <p class="font-semibold">Para quem acha as planilhas demasiado complicadas.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <p class="font-semibold">Para quem já tentou usar apps, mas acabou por desistir.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <p class="font-semibold">Para freelancers e pequenos empreendedores.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <p class="font-semibold">Para casais e famílias que gerem as finanças em conjunto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 10: Call to Action -->
+        <section class="slide items-center justify-center bg-gray-800 text-white">
+            <div class="slide-content text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Comece hoje a sua jornada para a tranquilidade financeira.</h2>
+                 <p class="text-xl text-gray-300 max-w-3xl mx-auto mb-12">Adquira o Boas Contas e receba tudo o que precisa para tomar o controlo do seu dinheiro.</p>
+                <div class="inline-block bg-white text-gray-800 p-8 rounded-lg shadow-2xl text-left max-w-md">
+                    <h3 class="text-2xl font-bold mb-4">O que recebe:</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>A Planilha Mestra "Boas Contas" pronta a copiar.</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>O código completo do sistema Apps Script.</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Manual de Instalação e Guias de Utilização.</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-3"></i>Futuras atualizações e melhorias.</li>
+                    </ul>
+                     <div class="mt-8 text-center">
+                        <p class="text-3xl font-bold text-gray-900 mb-4">[O Seu Preço ou Pacotes Aqui]</p>
+                        <a href="#" class="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-blue-700 transition-colors">Adquirir Agora</a>
+                        <p class="text-sm text-gray-500 mt-2">[Link para o seu site ou método de contacto]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Controles de Navegação -->
+    <div class="fixed bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-4 bg-white/50 backdrop-blur-sm p-2 rounded-full shadow-lg">
+        <button id="prev-slide" class="w-10 h-10 rounded-full bg-gray-800 text-white hover:bg-gray-700 flex items-center justify-center"><i class="fas fa-arrow-left"></i></button>
+        <div id="slide-counter" class="font-semibold text-gray-800 text-sm w-12 text-center">1 / 10</div>
+        <button id="next-slide" class="w-10 h-10 rounded-full bg-gray-800 text-white hover:bg-gray-700 flex items-center justify-center"><i class="fas fa-arrow-right"></i></button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const slideCounter = document.getElementById('slide-counter');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+        }
+
+        document.getElementById('next-slide').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        });
+
+        document.getElementById('prev-slide').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                document.getElementById('next-slide').click();
+            } else if (e.key === 'ArrowLeft') {
+                document.getElementById('prev-slide').click();
+            }
+        });
+        
+        showSlide(currentSlide);
+    </script>
+
+</body>
+</html>
+
