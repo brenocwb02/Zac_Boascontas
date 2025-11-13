@@ -420,6 +420,43 @@
                                 <div class="card" id="card-contas-a-pagar"><div class="card-header"><div class="card-icon" style="background: linear-gradient(135deg, var(--accent-red), var(--accent-orange));"><i class="fas fa-file-invoice-dollar"></i></div><div class="card-title">Contas a Pagar</div></div><div class="card-content"><div id="bills-to-pay"><div class="empty-state"><i class="fas fa-calendar-check"></i><div>Nenhuma conta pendente</div></div></div></div></div>
                                 <div class="card" id="card-cartoes-credito"><div class="card-header"><div class="card-icon" style="background: linear-gradient(135deg, var(--accent-orange), var(--accent-red));"><i class="fas fa-credit-card"></i></div><div class="card-title">Cartões de Crédito</div></div><div class="card-content"><div id="credit-cards"><div class="empty-state"><i class="fas fa-credit-card"></i><div>Nenhum cartão encontrado</div></div></div></div></div>
                                 <div class="card" id="card-metas"><div class="card-header"><div class="card-icon" style="background: linear-gradient(135deg, var(--accent-green), var(--accent-teal));"><i class="fas fa-bullseye"></i></div><div class="card-title">Progresso das Metas</div></div><div class="card-content"><div id="goals-progress"><div class="empty-state"><i class="fas fa-target"></i><div>Nenhuma meta definida</div></div></div></div></div>
+                            
+                                <!-- NOVO CARD: IMPORTAÇÃO RÁPIDA EM LOTE -->
+                                <div class="card" id="card-importacao-lote">
+                                    <div class="card-header">
+                                        <div class="card-icon" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-orange));">
+                                            <i class="fas fa-paste"></i>
+                                        </div>
+                                        <div class="card-title">Importação Rápida em Lote</div>
+                                    </div>
+                                    <div class="card-content">
+                                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+                                            Cole aqui os dados da sua fatura (formato: `[Nº] [Data] [Descrição] [Valor]`).
+                                        </p>
+                                        <div class="form-group">
+                                            <label for="batch-account">Para qual Conta/Cartão?</label>
+                                            <select id="batch-account" class="filter-controls" style="width: 100%;">
+                                                <option value="">Selecione a conta/cartão</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="batch-type">Qual o Tipo da Transação?</label>
+                                            <select id="batch-type" class="filter-controls" style="width: 100%;">
+                                                <option value="Despesa">Despesa</option>
+                                                <option value="Receita">Receita</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="batch-paste-data">Cole os dados aqui:</label>
+                                            <textarea id="batch-paste-data" rows="8" style="width: 100%; padding: 10px; border-radius: var(--border-radius-sm); border: 1px solid var(--border-color-light); background-color: var(--bg-secondary); color: var(--text-primary); font-family: 'Courier New', Courier, monospace;" placeholder="3 29/09 MERCEARIA GUIDELLI 10,65&#10;3 29/09 SO GULLA 26,98&#10;..."></textarea>
+                                        </div>
+                                        <button id="batch-import-btn" class="btn btn-primary" style="width: 100%;">
+                                            <i class="fas fa-upload"></i> Importar Lançamentos em Lote
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- FIM DO NOVO CARD -->
+                            
                             </div>
                         </div>
                     </div>
@@ -775,6 +812,18 @@
             allPaymentMethods = data.paymentMethods || [];
             allTransactions = data.recentTransactions || [];
             
+            // NOVO: Popula o dropdown de importação em lote
+            const batchAccountSelect = document.getElementById('batch-account');
+            if (batchAccountSelect) {
+                batchAccountSelect.innerHTML = '<option value="">Selecione a conta/cartão</option>';
+                allAccounts.forEach(account => {
+                    const option = document.createElement('option');
+                    option.value = account.nomeOriginal;
+                    option.textContent = `${account.nomeOriginal} (${account.tipo})`;
+                    batchAccountSelect.appendChild(option);
+                });
+            }
+
             renderSummary(data.summary);
             renderNetWorth(data.netWorth);
             renderAccountBalances(data.accountBalances);
@@ -814,7 +863,19 @@
         function openEditTransactionModal(transaction) { transactionModal.classList.add('show'); transactionModalTitle.textContent = 'Editar Lançamento'; transactionIdInput.value = transaction.id; transactionDateInput.value = transaction.data.split('/').reverse().join('-'); transactionDescriptionInput.value = transaction.descricao; transactionTypeSelect.value = transaction.tipo; transactionValueInput.value = transaction.valor; populateAccountsDropdown(); setTimeout(() => { transactionAccountSelect.value = transaction.conta; transactionTypeSelect.dispatchEvent(new Event('change')); setTimeout(() => { if (transaction.categoria) { transactionCategorySelect.value = transaction.categoria; transactionCategorySelect.dispatchEvent(new Event('change')); setTimeout(() => { if (transaction.subcategoria) { transactionSubcategorySelect.value = transaction.subcategoria; } }, 50); } if (transaction.metodoPagamento) { transactionPaymentMethodSelect.value = transaction.metodoPagamento; } }, 50); }, 50); }
         closeModalBtn.onclick = () => transactionModal.classList.remove('show'); cancelFormBtn.onclick = () => transactionModal.classList.remove('show');
         window.onclick = function(event) { if (event.target == transactionModal) transactionModal.classList.remove('show'); if (event.target == confirmDeleteModal) confirmDeleteModal.classList.remove('show'); if (event.target == categoryDetailModal) categoryDetailModal.classList.remove('show'); if (event.target == sidebarOverlay) toggleMenu(false); if (event.target == commandsGuideModal) commandsGuideModal.classList.remove('show'); if (event.target == accountModal) accountModal.classList.remove('show'); if (event.target == customizeModal) customizeModal.classList.remove('show'); }
-        function populateAccountsDropdown() { transactionAccountSelect.innerHTML = '<option value="">Selecione a conta/cartão</option>'; if (allAccounts.length === 0) { transactionAccountSelect.innerHTML = '<option value="">Nenhuma conta encontrada</option>'; } else { allAccounts.forEach(account => { const option = document.createElement('option'); option.value = account.nomeOriginal; option.textContent = `${account.nomeOriginal} (${account.tipo})`; transactionAccountSelect.appendChild(option); }); } }
+        function populateAccountsDropdown() { 
+            transactionAccountSelect.innerHTML = '<option value="">Selecione a conta/cartão</option>'; 
+            if (allAccounts.length === 0) { 
+                transactionAccountSelect.innerHTML = '<option value="">Nenhuma conta encontrada</option>'; 
+            } else { 
+                allAccounts.forEach(account => { 
+                    const option = document.createElement('option'); 
+                    option.value = account.nomeOriginal; 
+                    option.textContent = `${account.nomeOriginal} (${account.tipo})`; 
+                    transactionAccountSelect.appendChild(option); 
+                }); 
+            } 
+        }
         transactionTypeSelect.onchange = function() { const selectedType = transactionTypeSelect.value; transactionCategorySelect.innerHTML = '<option value="">Selecione a categoria</option>'; transactionSubcategorySelect.innerHTML = '<option value="">Selecione a subcategoria</option>'; if (selectedType === 'Despesa' || selectedType === 'Receita') { categoryGroup.style.display = 'block'; subcategoryGroup.style.display = 'block'; populateCategoriesDropdown(selectedType); } else { categoryGroup.style.display = 'none'; subcategoryGroup.style.display = 'none'; } paymentMethodGroup.style.display = selectedType ? 'block' : 'none'; if(selectedType) populatePaymentMethodsDropdown(); if (selectedType === 'Transferência' || selectedType === 'Receita') { installmentsGroup.style.display = 'none'; transactionInstallmentsInput.value = 1; dueDateGroup.style.display = 'none'; dueDateInput.value = ''; } else { installmentsGroup.style.display = 'block'; } };
         function populateCategoriesDropdown(type) { transactionCategorySelect.innerHTML = '<option value="">Selecione a categoria</option>'; if (Object.keys(allCategories).length === 0) { transactionCategorySelect.innerHTML = '<option value="">Nenhuma categoria encontrada</option>'; return; } const categoriesForType = Object.keys(allCategories).filter(cat => allCategories[cat].type === type); if (categoriesForType.length === 0) { transactionCategorySelect.innerHTML = '<option value="">Nenhuma categoria para este tipo</option>'; } else { categoriesForType.forEach(categoryName => { const option = document.createElement('option'); option.value = categoryName; option.textContent = categoryName; transactionCategorySelect.appendChild(option); }); } }
         transactionCategorySelect.onchange = function() { const selectedCategory = transactionCategorySelect.value; transactionSubcategorySelect.innerHTML = '<option value="">Selecione a subcategoria</option>'; if (selectedCategory && allCategories[selectedCategory]) { subcategoryGroup.style.display = 'block'; allCategories[selectedCategory].subcategories.forEach(sub => { const option = document.createElement('option'); option.value = sub; option.textContent = sub; transactionSubcategorySelect.appendChild(option); }); } else { subcategoryGroup.style.display = 'none'; transactionSubcategorySelect.innerHTML = '<option value="">Nenhuma subcategoria</option>'; } };
@@ -836,6 +897,109 @@
         function deleteAccount(accountName) { confirmDeleteBtn.disabled = true; confirmDeleteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Excluindo...'; google.script.run .withSuccessHandler(response => { confirmDeleteModal.classList.remove('show'); confirmDeleteBtn.disabled = false; confirmDeleteBtn.textContent = 'Excluir'; if (response.success) { showFeedback('Conta excluída com sucesso!', 'success'); const selectedMonth = parseInt(document.getElementById('month-select').value); const selectedYear = parseInt(document.getElementById('year-input').value); onSuccess(response.dashboardData, selectedMonth, selectedYear); } else { showFeedback('Erro ao excluir conta: ' + response.message, 'error'); } }) .withFailureHandler(error => { confirmDeleteModal.classList.remove('show'); showFeedback('Erro ao comunicar com o servidor: ' + error.message, 'error'); confirmDeleteBtn.disabled = false; confirmDeleteBtn.textContent = 'Excluir'; }) .deleteAccountFromWeb(accountName); }
         accountForm.onsubmit = (event) => { event.preventDefault(); const isEditing = !!originalAccountNameInput.value; const accountData = { originalName: originalAccountNameInput.value, name: accountNameInput.value, type: accountTypeSelect.value, bank: accountBankInput.value, initialBalance: parseFloat(accountInitialBalanceInput.value) }; const submitButton = accountForm.querySelector('button[type="submit"]'); submitButton.disabled = true; submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Salvando...'; google.script.run .withSuccessHandler(response => { submitButton.disabled = false; submitButton.textContent = 'Salvar'; if (response.success) { accountModal.classList.remove('show'); showFeedback(`Conta ${isEditing ? 'atualizada' : 'salva'} com sucesso!`, 'success'); const selectedMonth = parseInt(document.getElementById('month-select').value); const selectedYear = parseInt(document.getElementById('year-input').value); onSuccess(response.dashboardData, selectedMonth, selectedYear); } else { showFeedback(`Erro: ${response.message}`, "error"); } }) .withFailureHandler(error => { showFeedback('Erro ao comunicar com o servidor.', 'error'); submitButton.disabled = false; submitButton.textContent = 'Salvar'; }) .addOrUpdateAccountFromWeb(accountData); };
         
+        // --- INÍCIO DO NOVO CÓDIGO JS PARA IMPORTAÇÃO EM LOTE ---
+
+        /**
+         * Faz o parse dos dados colados da fatura.
+         * Formato esperado: [Num] [Data DD/MM] [Descrição] [Valor BRL]
+         * @param {string} text - O texto bruto da área de texto.
+         * @returns {Array<Object>} Um array de objetos de transação.
+         */
+        function parsePastedData(text) {
+            const transactions = [];
+            const lines = text.trim().split('\n');
+            // Regex para capturar: 1:Data (DD/MM), 2:Descrição (não guloso), 3:Valor (com , ou .)
+            const regex = /^\s*\d+\s+(\d{2}\/\d{2})\s+(.+?)\s+([\d.,]+)\s*$/;
+
+            for (const line of lines) {
+                const match = line.trim().match(regex);
+                if (match) {
+                    // Converte o valor para formato numérico padrão (ex: "10,65" -> 10.65)
+                    const valorNum = parseFloat(match[3].replace(/\./g, '').replace(',', '.'));
+                    
+                    if (!isNaN(valorNum) && valorNum > 0) {
+                        transactions.push({
+                            date: match[1], // "29/09"
+                            description: match[2].trim(), // "MERCEARIA GUIDELLI E S"
+                            value: valorNum // 10.65
+                        });
+                    }
+                }
+            }
+            return transactions;
+        }
+
+        /**
+         * Lida com o clique no botão de importação em lote.
+         */
+        function handleBatchImport() {
+            const pastedData = document.getElementById('batch-paste-data').value;
+            const accountName = document.getElementById('batch-account').value;
+            const transactionType = document.getElementById('batch-type').value;
+            const year = parseInt(document.getElementById('year-input').value);
+            const importBtn = document.getElementById('batch-import-btn');
+
+            if (!accountName) {
+                showFeedback('Erro: Por favor, selecione uma conta/cartão de destino.', 'error');
+                return;
+            }
+            if (!pastedData) {
+                showFeedback('Erro: Por favor, cole os dados na caixa de texto.', 'error');
+                return;
+            }
+
+            // 1. Parse dos dados colados
+            const transactions = parsePastedData(pastedData);
+
+            if (transactions.length === 0) {
+                showFeedback('Erro: Nenhum dado válido encontrado. O formato esperado é: 3 29/09 DESCRICAO 10,65', 'error');
+                return;
+            }
+
+            // 2. Desativa o botão e mostra o loading
+            importBtn.disabled = true;
+            importBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Importando...';
+
+            // 3. Envia para o backend
+            google.script.run
+                .withSuccessHandler(onBatchImportSuccess)
+                .withFailureHandler(onBatchImportFailure)
+                .addBatchTransactionsFromWeb(transactions, accountName, transactionType, year);
+        }
+
+        /**
+         * Callback de sucesso para a importação em lote.
+         */
+        function onBatchImportSuccess(response) {
+            const importBtn = document.getElementById('batch-import-btn');
+            importBtn.disabled = false;
+            importBtn.innerHTML = '<i class="fas fa-upload"></i> Importar Lançamentos em Lote';
+
+            if (response.success) {
+                showFeedback(response.message, 'success');
+                // Limpa a caixa de texto
+                document.getElementById('batch-paste-data').value = '';
+                // Atualiza o dashboard com os novos dados
+                const selectedMonth = parseInt(document.getElementById('month-select').value);
+                const selectedYear = parseInt(document.getElementById('year-input').value);
+                onSuccess(response.dashboardData, selectedMonth, selectedYear, null);
+            } else {
+                onBatchImportFailure({ message: response.message });
+            }
+        }
+
+        /**
+         * Callback de falha para a importação em lote.
+         */
+        function onBatchImportFailure(error) {
+            const importBtn = document.getElementById('batch-import-btn');
+            importBtn.disabled = false;
+            importBtn.innerHTML = '<i class="fas fa-upload"></i> Importar Lançamentos em Lote';
+            showFeedback('Falha na importação: ' + error.message, 'error');
+        }
+
+        // --- FIM DO NOVO CÓDIGO JS PARA IMPORTAÇÃO EM LOTE ---
+
         const ALL_CARDS = [
             { id: 'card-receitas', title: 'Receitas do Mês' },
             { id: 'card-despesas', title: 'Despesas do Mês' },
@@ -843,16 +1007,15 @@
             { id: 'card-patrimonio', title: 'Patrimônio Líquido' },
             { id: 'card-contas', title: 'Minhas Contas' },
             { id: 'card-despesas-categoria', title: 'Gráfico de Despesas' },
-            // --- INÍCIO DA CORREÇÃO ---
             { id: 'card-evolucao-carteira', title: 'Evolução da Carteira' },
-            // --- FIM DA CORREÇÃO ---
             { id: 'card-investimentos', title: 'Carteira de Investimentos' },
             { id: 'card-orcamento', title: 'Progresso do Orçamento' },
             { id: 'card-necessidades-desejos', title: 'Gráfico Necessidades vs. Desejos' },
             { id: 'card-transacoes-recentes', title: 'Lançamentos Recentes' },
             { id: 'card-contas-a-pagar', title: 'Contas a Pagar' },
             { id: 'card-cartoes-credito', title: 'Cartões de Crédito' },
-            { id: 'card-metas', title: 'Progresso das Metas' }
+            { id: 'card-metas', title: 'Progresso das Metas' },
+            { id: 'card-importacao-lote', title: 'Importação Rápida em Lote' } // <-- ADICIONADO AQUI
         ];
 
         const customizeBtn = document.getElementById('customize-dashboard-btn');
@@ -1090,9 +1253,14 @@
             document.getElementById('hamburger-menu').addEventListener('click', () => toggleMenu());
             document.getElementById('sidebar-overlay').addEventListener('click', () => toggleMenu(false));
             
+            // ADICIONADO: Event listener para o novo botão de importação em lote
+            const batchImportBtn = document.getElementById('batch-import-btn');
+            if(batchImportBtn) {
+                batchImportBtn.addEventListener('click', handleBatchImport);
+            }
+
             loadLayoutPreferences();
         });
     </script>
 </body>
 </html>
-
