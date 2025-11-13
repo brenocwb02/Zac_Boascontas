@@ -1240,7 +1240,7 @@ function enviarContasAPagar(chatId, usuario, mes, ano) {
       const categoriaNormalizadaTransacao = normalizarTexto(categoriaTransacao);
 
       const similarityScore = calculateSimilarity(descNormalizadaTransacao, descNormalizadaContaFixa);
-      const isCategoryMatch = categoriaNormalizadaContaFixa.startsWith(categoriaNormalizadaContaFixa);
+      const isCategoryMatch = categoriaNormalizadaTransacao === categoriaNormalizadaContaFixa;
       const isValueMatch = Math.abs(valorTransacao - contaFixa.valor) < 0.01; // Tolerância de 1 centavo
 
       logToSheet(`[ContasAPagar Debug] Comparando Transacao (Desc: "${descricaoTransacao}", Cat: "${categoriaTransacao}", Valor: ${valorTransacao.toFixed(2)}) com Conta Fixa (Desc: "${contaFixa.descricao}", Cat: "${contaFixa.categoria}", Valor: ${contaFixa.valor.toFixed(2)}).`, "DEBUG");
